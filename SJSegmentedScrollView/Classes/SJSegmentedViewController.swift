@@ -135,6 +135,19 @@ import UIKit
     }
     
     /**
+     *  Set color for segment title.
+     *
+     *  By default the color is black.
+     *
+     *  segmentedViewController.segmentTitleColor = UIColor.redColor()
+     */
+    open var segmentSelectedTitleColor = UIColor.black {
+        didSet {
+            segmentedScrollView.segmentSelectedTitleColor = segmentSelectedTitleColor
+        }
+    }
+    
+    /**
      *  Set color for segment background.
      *
      *  By default the color is white.
@@ -350,6 +363,7 @@ import UIKit
         segmentedScrollView.selectedSegmentViewColor    = selectedSegmentViewColor
         segmentedScrollView.selectedSegmentViewHeight   = selectedSegmentViewHeight
         segmentedScrollView.segmentTitleColor           = segmentTitleColor
+        segmentedScrollView.segmentSelectedTitleColor   = segmentSelectedTitleColor
         segmentedScrollView.segmentBackgroundColor      = segmentBackgroundColor
         segmentedScrollView.segmentShadow               = segmentShadow
         segmentedScrollView.segmentTitleFont            = segmentTitleFont
@@ -413,9 +427,9 @@ import UIKit
      */
     func addHeaderViewController(_ headerViewController: UIViewController) {
         
-        addChildViewController(headerViewController)
+        addChild(headerViewController)
         segmentedScrollView.addHeaderView(headerViewController.view)
-        headerViewController.didMove(toParentViewController: self)
+        headerViewController.didMove(toParent: self)
     }
     
     /**
@@ -429,9 +443,9 @@ import UIKit
         var index = 0
         for controller in contentControllers {
             
-            addChildViewController(controller)
+            addChild(controller)
             segmentedScrollView.addContentView(controller.view, frame: view.bounds)
-            controller.didMove(toParentViewController: self)
+            controller.didMove(toParent: self)
             
             let delegate = controller as? SJSegmentedViewControllerViewSource
             var observeView = controller.view

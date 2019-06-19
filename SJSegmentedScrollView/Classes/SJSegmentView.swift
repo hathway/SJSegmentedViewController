@@ -38,6 +38,14 @@ class SJSegmentView: UIScrollView {
         }
     }
     
+    var selectedTitleColor: UIColor? {
+        didSet {
+            for segment in segments {
+                segment.selectedTitleColor(selectedTitleColor)
+            }
+        }
+    }
+    
     var segmentBackgroundColor: UIColor? {
         didSet {
             for segment in segments {
@@ -268,6 +276,7 @@ class SJSegmentView: UIScrollView {
 
 			segmentTab?.backgroundColor = segmentBackgroundColor
 			segmentTab?.titleColor(titleColor!)
+            segmentTab?.selectedTitleColor(selectedTitleColor!)
 			segmentTab?.titleFont(font!)
 		}
 
@@ -347,7 +356,13 @@ class SJSegmentView: UIScrollView {
         let value = (contentView?.contentOffset.x)! / changeOffset
         
         if !value.isNaN {
-            xPosConstraints!.constant = (selectedSegmentView?.frame.origin.x)!
+            if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
+                let newIndex = contentView?.pageIndex ?? 0
+                xPosConstraints!.constant = CGFloat(newIndex) * segmentWidth
+            } else {
+                xPosConstraints!.constant = (selectedSegmentView?.frame.origin.x)!
+            }
+            
             layoutIfNeeded()
         }
     }

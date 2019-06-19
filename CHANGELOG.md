@@ -48,3 +48,9 @@ All notable changes to this project will be documented in this file.
 
 #### `1.3.9`
 * Added 'segmentBounces' property to set content view bounces.
+
+#### `1.4.0`
+* Migrated to Swift 4.2
+
+#### `1.5.0`
+* RTL support added.
