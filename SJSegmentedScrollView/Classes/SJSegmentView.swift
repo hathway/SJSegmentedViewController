@@ -304,13 +304,15 @@ class SJSegmentView: UIScrollView {
 			}
 		}
 
-		let width = Int(maxWidth + segmentViewOffsetWidth)
-		let totalWidth = width * (controllers?.count)!
-		if totalWidth < Int(frame.size.width)  {
+        //Commenting out the width setting code as this is increasing the width of segment on
+        //every viewDidLayoutSubviews call
+//        let width = Int(maxWidth + segmentViewOffsetWidth)
+//        let totalWidth = width * (controllers?.count)!
+//        if totalWidth < Int(frame.size.width)  {
 			maxWidth = frame.size.width /  CGFloat((controllers?.count)!)
-		} else {
-			maxWidth = CGFloat(width)
-		}
+//        } else {
+//            maxWidth = CGFloat(width)
+//        }
 
 		return maxWidth
 	}
