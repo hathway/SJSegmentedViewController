@@ -81,7 +81,13 @@ import UIKit
             segmentedScrollView.segmentViewHeight = segmentViewHeight
         }
     }
-    
+
+    open var segmentViewInsets: CGSize = .zero {
+        didSet {
+            segmentedScrollView.segmentViewInsets = segmentViewInsets
+        }
+    }
+
     /**
      *  Set headerview offset height.
      *
