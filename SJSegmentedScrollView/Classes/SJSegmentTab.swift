@@ -38,12 +38,16 @@ open class SJSegmentTab: UIView {
 
 	convenience init(title: String) {
 		self.init(frame: CGRect.zero)
+        isAccessibilityElement = true
+        button.isAccessibilityElement = true
+        accessibilityLabel = title
         setTitle(title)
 	}
 
 	convenience init(view: UIView) {
 		self.init(frame: CGRect.zero)
-
+        isAccessibilityElement = false
+        button.isAccessibilityElement = false
 		insertSubview(view, at: 0)
 		view.removeConstraints(view.constraints)
 		addConstraintsToView(view)
