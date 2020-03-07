@@ -106,6 +106,10 @@ open class SJSegmentTab: UIView {
     open func setAccessibilityLabel(_ label: String) {
         button.accessibilityLabel = label
     }
+    
+    open func getTitle() -> String? {
+        return button.title(for: .normal)
+    }
 
 	@objc func onSegmentButtonPress(_ sender: AnyObject) {
 		let index = tag - kSegmentViewTagOffset
