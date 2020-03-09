@@ -107,6 +107,10 @@ open class SJSegmentTab: UIView {
         button.accessibilityLabel = label
     }
     
+    open func setAccessibilityTraits(_ traits: UIAccessibilityTraits) {
+        button.accessibilityTraits = traits
+    }
+    
     open func getTitle() -> String? {
         return button.title(for: .normal)
     }
