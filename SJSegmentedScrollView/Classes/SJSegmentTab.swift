@@ -28,9 +28,10 @@ open class SJSegmentTab: UIView {
 
 	let kSegmentViewTagOffset = 100
 	let button = UIButton(type: .custom)
+    public var tabView: UIView?
 
 	var didSelectSegmentAtIndex: DidSelectSegmentAtIndex?
-	var isSelected = false {
+	public var isSelected = false {
 		didSet {
 			button.isSelected = isSelected
 		}
@@ -51,6 +52,8 @@ open class SJSegmentTab: UIView {
 		insertSubview(view, at: 0)
 		view.removeConstraints(view.constraints)
 		addConstraintsToView(view)
+        
+        self.tabView = view
 	}
 
 	required override public init(frame: CGRect) {

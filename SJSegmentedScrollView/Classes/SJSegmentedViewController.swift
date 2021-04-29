@@ -287,6 +287,15 @@ import UIKit
         }
     }
     
+    public var topSpacing: CGFloat? {
+        get {
+            segmentedScrollView.topSpacing
+        }
+        set {
+            segmentedScrollView.topSpacing = newValue
+        }
+    }
+    
     open weak var delegate:SJSegmentedViewControllerDelegate?
     var segmentedScrollView = SJSegmentedScrollView(frame: CGRect.zero)
     var segmentScrollViewTopConstraint: NSLayoutConstraint?
