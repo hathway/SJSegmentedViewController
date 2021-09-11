@@ -22,6 +22,6 @@ let package = Package(
         .target(
             name: "SJSegmentedViewController",
             dependencies: [],
-			path: "SJSegmentedScrollView")
+			path: "SJSegmentedScrollView/Classes")
     ]
 )
