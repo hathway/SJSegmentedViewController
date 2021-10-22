@@ -1,4 +1,17 @@
-# SJSegmentedScrollView
+# Deprecated
+
+Do not use `SJSegmentedScrollView` for new projects. This repo exists to support existing projects only.
+
+The scrolling when using this component is not smooth, for details see:
+
+[DBRO-1549 | Locator Screen - Smooth the Scrolling when Map is scrolled away](https://hathway.atlassian.net/browse/DBRO-1549)
+[BMKT-1748 | Locator Screen - Smooth the Scrolling when Map is scrolled away](https://hathway.atlassian.net/browse/BMKT-1748)
+[NDLS-3100 | Locator Screen - Smooth the Scrolling when Map is scrolled away](https://hathway.atlassian.net/browse/NDLS-3100)
+
+and a discussion on [Slack on January 5th, 2021](https://hathway.slack.com/archives/C5UEQ4283/p1609887480144800)
+
+-
+# hathway/SJSegmentedScrollView
 
 [![CI Status](https://img.shields.io/travis/subinspathilettu/SJSegmentedViewController.svg?style=flat)](https://travis-ci.org/subinspathilettu/SJSegmentedViewController)
 [![Version](https://img.shields.io/cocoapods/v/SJSegmentedScrollView.svg?style=flat)](http://cocoapods.org/pods/SJSegmentedScrollView)
