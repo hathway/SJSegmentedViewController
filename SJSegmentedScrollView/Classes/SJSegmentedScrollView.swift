@@ -37,7 +37,17 @@ class SJSegmentedScrollView: UIScrollView {
             segmentViewHeightConstraint?.constant = segmentViewHeight
         }
     }
-    var segmentViewInsets: CGSize = .zero
+    var segmentViewInsets: CGSize = .zero {
+        didSet {
+            if segmentViewEdgeInsets == .zero {
+                segmentViewEdgeInsets = UIEdgeInsets(top: segmentViewInsets.height,
+                                                     left: segmentViewInsets.width,
+                                                     bottom: segmentViewInsets.height,
+                                                     right: segmentViewInsets.width)
+            }
+        }
+    }
+    var segmentViewEdgeInsets: UIEdgeInsets = .zero
 
     var headerViewOffsetHeight: CGFloat = 0
 
@@ -78,6 +88,12 @@ class SJSegmentedScrollView: UIScrollView {
     var segmentTitleFont: UIFont! = UIFont.systemFont(ofSize: 12) {
         didSet {
             segmentView?.font = segmentTitleFont
+        }
+    }
+    
+    var segmentSelectedTitleFont: UIFont! = UIFont.systemFont(ofSize: 12) {
+        didSet {
+            segmentView?.selectedFont = segmentSelectedTitleFont
         }
     }
 
@@ -243,7 +259,7 @@ class SJSegmentedScrollView: UIScrollView {
         contentView?.layoutIfNeeded()
 
 
-        var frameWithInsets = frame.insetBy(dx: segmentViewInsets.width, dy: 0)
+        var frameWithInsets = frame.inset(by: segmentViewEdgeInsets)
         frameWithInsets.origin = .zero
         segmentView?.didChangeParentViewFrame(frameWithInsets)
         contentView?.updateContentControllersFrame(frame)
@@ -271,8 +287,9 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.selectedTitleColor = segmentSelectedTitleColor
             segmentView?.segmentBackgroundColor = segmentBackgroundColor
             segmentView?.font = segmentTitleFont!
+            segmentView?.selectedFont = segmentSelectedTitleFont!
             segmentView?.shadow = segmentShadow
-            segmentView?.font = segmentTitleFont!
+
             segmentView?.bounces = false
             segmentView!.translatesAutoresizingMaskIntoConstraints = false
             segmentView!.didSelectSegmentAtIndex = { [unowned self] (segment, index, animated) in
@@ -280,19 +297,19 @@ class SJSegmentedScrollView: UIScrollView {
                 self.didSelectSegmentAtIndex?(segment, index, animated)
             }
 
-            var frameWithInsets = frame.insetBy(dx: segmentViewInsets.width, dy: 0)
+            var frameWithInsets = frame.inset(by: segmentViewEdgeInsets)
             frameWithInsets.origin = .zero
             segmentView?.setSegmentsView(frameWithInsets)
             addSubview(segmentView!)
 
-            let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(segmentViewInsets.width)-[segmentView]-\(segmentViewInsets.width)-|",
+            let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(segmentViewEdgeInsets.left)-[segmentView]-\(segmentViewEdgeInsets.right)-|",
                 options: [],
                 metrics: nil,
                 views: ["segmentView": segmentView!])
             addConstraints(horizontalConstraints)
 
             let view = headerView == nil ? self : headerView
-            let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[headerView]-\(segmentViewInsets.height)-[segmentView(\(segmentViewHeight))]",
+            let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[headerView]-\(segmentViewEdgeInsets.top)-[segmentView(\(segmentViewHeight))]",
                 options: [],
                 metrics: nil,
                 views: ["headerView": view!,
@@ -334,7 +351,7 @@ class SJSegmentedScrollView: UIScrollView {
                                                                    views: ["contentView": contentView])
         scrollContentView.addConstraints(horizontalConstraints)
 
-        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[headerView]-\(segmentViewHeight + segmentViewInsets.height)-[contentView]-0-|",
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[headerView]-\(segmentViewHeight + segmentViewEdgeInsets.top)-[contentView]-0-|",
             options: [],
             metrics: nil,
             views: ["headerView": headerView!,

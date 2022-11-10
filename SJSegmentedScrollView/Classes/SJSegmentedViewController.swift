@@ -87,6 +87,12 @@ import UIKit
             segmentedScrollView.segmentViewInsets = segmentViewInsets
         }
     }
+    
+    open var segmentViewEdgeInsets: UIEdgeInsets = .zero {
+        didSet {
+            segmentedScrollView.segmentViewEdgeInsets = segmentViewEdgeInsets
+        }
+    }
 
     /**
      *  Set headerview offset height.
@@ -187,6 +193,12 @@ import UIKit
     open var segmentTitleFont = UIFont.systemFont(ofSize: 14.0) {
         didSet {
             segmentedScrollView.segmentTitleFont = segmentTitleFont
+        }
+    }
+    
+    open var segmentSelectedTitleFont = UIFont.systemFont(ofSize: 14.0) {
+        didSet {
+            segmentedScrollView.segmentSelectedTitleFont = segmentSelectedTitleFont
         }
     }
     
