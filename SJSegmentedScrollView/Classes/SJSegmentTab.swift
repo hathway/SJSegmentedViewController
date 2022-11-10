@@ -29,11 +29,15 @@ open class SJSegmentTab: UIView {
 	let kSegmentViewTagOffset = 100
 	let button = UIButton(type: .custom)
     public var tabView: UIView?
+    
+    private var titleFont: UIFont?
+    private var selectedTitleFont: UIFont?
 
 	var didSelectSegmentAtIndex: DidSelectSegmentAtIndex?
 	public var isSelected = false {
 		didSet {
 			button.isSelected = isSelected
+            updateButtonFont()
 		}
 	}
 
@@ -102,9 +106,14 @@ open class SJSegmentTab: UIView {
     }
 
 	open func titleFont(_ font: UIFont) {
-
-		button.titleLabel?.font = font
+		titleFont = font
+        updateButtonFont()
 	}
+    
+    open func selectedTitleFont(_ font: UIFont) {
+        selectedTitleFont = font
+        updateButtonFont()
+    }
     
     open func setAccessibilityLabel(_ label: String) {
         button.accessibilityLabel = label
@@ -116,6 +125,20 @@ open class SJSegmentTab: UIView {
     
     open func getTitle() -> String? {
         return button.title(for: .normal)
+    }
+    
+    private func updateButtonFont() {
+        if button.isSelected {
+            if let font = selectedTitleFont {
+                button.titleLabel?.font = font
+            } else if let font = titleFont {
+                button.titleLabel?.font = font
+            }
+        } else {
+            if let font = titleFont {
+                button.titleLabel?.font = font
+            }
+        }
     }
 
 	@objc func onSegmentButtonPress(_ sender: AnyObject) {

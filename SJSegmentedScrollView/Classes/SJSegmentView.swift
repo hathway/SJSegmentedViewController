@@ -67,6 +67,7 @@ class SJSegmentView: UIScrollView {
     }
     
     var font: UIFont?
+    var selectedFont: UIFont?
     var selectedSegmentViewHeight: CGFloat?
     let kSegmentViewTagOffset = 100
     var segmentViewOffsetWidth: CGFloat = 10.0
@@ -278,6 +279,7 @@ class SJSegmentView: UIScrollView {
 			segmentTab?.titleColor(titleColor!)
             segmentTab?.selectedTitleColor(selectedTitleColor!)
 			segmentTab?.titleFont(font!)
+            segmentTab?.selectedTitleFont(selectedFont!)
 		}
 
 		segmentTab?.didSelectSegmentAtIndex = didSelectSegmentAtIndex
