@@ -65,6 +65,8 @@ import UIKit
      */
     open var headerViewHeight: CGFloat = 0.0 {
         didSet {
+            guard segmentedScrollView.headerViewHeight != headerViewHeight else { return }
+            
             segmentedScrollView.headerViewHeight = headerViewHeight
         }
     }
