@@ -26,7 +26,7 @@ class SJContentView: UIScrollView {
     
     var pageIndex = 0
     var contentViews = [UIView]()
-    var contentView: UIView!
+    let contentView: UIView = .init()
     var contentViewWidthConstraint: NSLayoutConstraint!
     var contentSubViewWidthConstraints = [NSLayoutConstraint]()
     let animationDuration = 0.3
@@ -38,14 +38,13 @@ class SJContentView: UIScrollView {
         delegate = self
 		isPagingEnabled = true
         
-        contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         
         let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView]|",
                                                                                    options: [],
                                                                                    metrics: nil,
-                                                                                   views: ["contentView": contentView, "mainView": self])
+                                                                   views: ["contentView": contentView, "mainView": self])
         addConstraints(horizontalConstraints)
         
         contentViewWidthConstraint = NSLayoutConstraint(item: contentView,
@@ -60,7 +59,7 @@ class SJContentView: UIScrollView {
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView(==mainView)]|",
                                                                                  options: [],
                                                                                  metrics: nil,
-                                                                                 views: ["contentView": contentView, "mainView": self])
+                                                                 views: ["contentView": contentView, "mainView": self])
         addConstraints(verticalConstraints)
     }
     

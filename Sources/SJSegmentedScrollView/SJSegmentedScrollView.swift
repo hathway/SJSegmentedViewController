@@ -94,7 +94,7 @@ class SJSegmentedScrollView: UIScrollView {
     
     var contentView: SJContentView?
     
-    var scrollContentView: UIView!
+    let scrollContentView: UIView = .init()
     
     var contentViewHeightConstraint: NSLayoutConstraint!
     
@@ -128,7 +128,7 @@ class SJSegmentedScrollView: UIScrollView {
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = sjShowsHorizontalScrollIndicator
         showsVerticalScrollIndicator = sjShowsVerticalScrollIndicator
-		decelerationRate = UIScrollViewDecelerationRateFast
+        decelerationRate = UIScrollView.DecelerationRate.fast
         bounces = false
         
         addObserver(self, forKeyPath: "contentOffset",
@@ -155,35 +155,30 @@ class SJSegmentedScrollView: UIScrollView {
     }
     
     func setContentView() {
-        
-        if scrollContentView == nil {
-            
-            scrollContentView = UIView()
-            scrollContentView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(scrollContentView)
-            
-            let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView(==mainView)]|",
-                                                                                       options: [],
-                                                                                       metrics: nil,
-                                                                                       views: ["contentView": scrollContentView, "mainView": self])
-            addConstraints(horizontalConstraints)
-            
-            let contentHeight = getContentHeight()
-            let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView]|",
-                                                                                     options: [],
-                                                                                     metrics: nil,
-                                                                                     views: ["contentView": scrollContentView])
-            addConstraints(verticalConstraints)
-            
-            contentViewHeightConstraint = NSLayoutConstraint(item: scrollContentView,
-                                                             attribute: .height,
-                                                             relatedBy: .equal,
-                                                             toItem: nil,
-                                                             attribute: .notAnAttribute,
-                                                             multiplier: 1.0,
-                                                             constant: contentHeight)
-            addConstraint(contentViewHeightConstraint)
-        }
+        scrollContentView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(scrollContentView)
+
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView(==mainView)]|",
+                                                                                   options: [],
+                                                                                   metrics: nil,
+                                                                                   views: ["contentView": scrollContentView, "mainView": self])
+        addConstraints(horizontalConstraints)
+
+        let contentHeight = getContentHeight()
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView]|",
+                                                                                 options: [],
+                                                                                 metrics: nil,
+                                                                                 views: ["contentView": scrollContentView])
+        addConstraints(verticalConstraints)
+
+        contentViewHeightConstraint = NSLayoutConstraint(item: scrollContentView,
+                                                         attribute: .height,
+                                                         relatedBy: .equal,
+                                                         toItem: nil,
+                                                         attribute: .notAnAttribute,
+                                                         multiplier: 1.0,
+                                                         constant: contentHeight)
+        addConstraint(contentViewHeightConstraint)
     }
     
     private var headerHeightConstraint: NSLayoutConstraint?
