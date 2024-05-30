@@ -77,9 +77,8 @@ class SJSegmentView: UIScrollView {
     var didSelectSegmentAtIndex: DidSelectSegmentAtIndex?
     var selectedSegmentView: UIView?
     var xPosConstraints: NSLayoutConstraint?
-    var contentViewWidthConstraint: NSLayoutConstraint?
-    var selectedSegmentViewWidthConstraint: NSLayoutConstraint?
-    var contentSubViewWidthConstraints = [NSLayoutConstraint]()
+    private var contentViewWidthConstraint: NSLayoutConstraint?
+    private var contentSubViewWidthConstraints = [NSLayoutConstraint]()
 	var controllers: [UIViewController]?
     
     var contentView: SJContentView? {
