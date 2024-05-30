@@ -149,6 +149,17 @@ import UIKit
     }
     
     /**
+     *  Set padding inbetween segments
+     *
+     *  By default is nil
+     */
+    open var segmentSpacing: CGFloat? {
+        didSet {
+            segmentedScrollView.segmentSpacing = segmentSpacing
+        }
+    }
+    
+    /**
      *  Set width for segment views.
      *
      *  By default width is equally spaced based on screen width

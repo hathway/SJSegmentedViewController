@@ -59,6 +59,7 @@ class SJSegmentedScrollView: UIScrollView {
     
     var selectedSegmentCornerRadius: CGFloat = 0
     var widthSegmentOverrides: [CGFloat] = []
+    var segmentSpacing: CGFloat?
     var selectedSegmentViewHeight: CGFloat = 0
 
     var segmentBounces = false
@@ -290,6 +291,7 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.shadow = segmentShadow
             segmentView?.cornerRadius = selectedSegmentCornerRadius
             segmentView?.widthSegmentOverrides = widthSegmentOverrides
+            segmentView?.segmentSpacing = segmentSpacing
 
             segmentView?.bounces = false
             segmentView!.translatesAutoresizingMaskIntoConstraints = false

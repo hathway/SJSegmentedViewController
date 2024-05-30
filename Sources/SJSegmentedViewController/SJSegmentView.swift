@@ -69,6 +69,7 @@ class SJSegmentView: UIScrollView {
     var font: UIFont?
     var selectedFont: UIFont?
     var cornerRadius: CGFloat?
+    var segmentSpacing: CGFloat?
     var selectedSegmentViewHeight: CGFloat?
     let kSegmentViewTagOffset = 100
     var segmentViewOffsetWidth: CGFloat = 10.0
@@ -213,6 +214,13 @@ class SJSegmentView: UIScrollView {
                                                                                        metrics: nil,
                                                                                        views: ["view": segmentView,
                                                                                         "previousView": previousView!])
+            
+            if let segmentSpacing {
+                horizontalConstraints.forEach {
+                    $0.constant = segmentSpacing
+                }
+            }
+            
             segmentContentView!.addConstraints(horizontalConstraints)
         }
         
