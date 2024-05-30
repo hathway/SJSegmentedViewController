@@ -149,6 +149,17 @@ import UIKit
     }
     
     /**
+     *  Set width for segment views.
+     *
+     *  By default width is equally spaced based on screen width
+     */
+    open var widthSegmentOverrides: [CGFloat] = [] {
+        didSet {
+            segmentedScrollView.widthSegmentOverrides = widthSegmentOverrides
+        }
+    }
+    
+    /**
      *  Set color for segment title.
      *
      *  By default the color is black.

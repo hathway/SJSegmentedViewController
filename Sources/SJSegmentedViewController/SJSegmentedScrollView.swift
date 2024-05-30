@@ -58,6 +58,7 @@ class SJSegmentedScrollView: UIScrollView {
     }
     
     var selectedSegmentCornerRadius: CGFloat = 0
+    var widthSegmentOverrides: [CGFloat] = []
     var selectedSegmentViewHeight: CGFloat = 0
 
     var segmentBounces = false
@@ -257,7 +258,9 @@ class SJSegmentedScrollView: UIScrollView {
 
         var frameWithInsets = frame.inset(by: segmentViewEdgeInsets)
         frameWithInsets.origin = .zero
-        segmentView?.didChangeParentViewFrame(frameWithInsets)
+        if widthSegmentOverrides.isEmpty {
+            segmentView?.didChangeParentViewFrame(frameWithInsets)
+        }
         contentView?.updateContentControllersFrame(frame)
     }
 
@@ -286,6 +289,7 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.selectedFont = segmentSelectedTitleFont!
             segmentView?.shadow = segmentShadow
             segmentView?.cornerRadius = selectedSegmentCornerRadius
+            segmentView?.widthSegmentOverrides = widthSegmentOverrides
 
             segmentView?.bounces = false
             segmentView!.translatesAutoresizingMaskIntoConstraints = false

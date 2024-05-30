@@ -75,8 +75,9 @@ class SJSegmentView: UIScrollView {
     var segments = [SJSegmentTab]()
     var segmentContentView: UIView?
     var didSelectSegmentAtIndex: DidSelectSegmentAtIndex?
-    var selectedSegmentView: UIView?
+    private var selectedSegmentView: UIView?
     var xPosConstraints: NSLayoutConstraint?
+    var widthSegmentOverrides: [CGFloat] = []
     private var contentViewWidthConstraint: NSLayoutConstraint?
     private var contentSubViewWidthConstraints = [NSLayoutConstraint]()
 	var controllers: [UIViewController]?
@@ -141,8 +142,12 @@ class SJSegmentView: UIScrollView {
         
         var index = 0
         for controller in controllers! {
+            var widthOverride: CGFloat = segmentWidth
+            if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count > index {
+                widthOverride = widthSegmentOverrides[index]
+            }
             
-            createSegmentFor(controller, width: segmentWidth, index: index)
+            createSegmentFor(controller, width: widthOverride, index: index)
             index += 1
         }
         
@@ -229,7 +234,7 @@ class SJSegmentView: UIScrollView {
         segments.append(segmentView)
     }
     
-    func createSelectedSegmentView(_ width: CGFloat) {
+    private func createSelectedSegmentView(_ width: CGFloat) {
         
         let segmentView = UIView()
         segmentView.backgroundColor = selectedSegmentViewColor
@@ -288,7 +293,7 @@ class SJSegmentView: UIScrollView {
         return segmentTab!
     }
 
-	func widthForSegment(_ frame: CGRect) -> CGFloat {
+	private func widthForSegment(_ frame: CGRect) -> CGFloat {
 
 		var maxWidth: CGFloat = 0
 		for controller in controllers! {
@@ -334,7 +339,16 @@ class SJSegmentView: UIScrollView {
                     let value = (scrollView?.contentOffset.x)! / changeOffset
                     
                     if !value.isNaN {
-                        selectedSegmentView?.frame.origin.x = (scrollView?.contentOffset.x)! / changeOffset
+                        if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count >= segments.count {
+                            for index in 0..<segments.count {
+                                if segments[index].isSelected {
+                                    self.selectedSegmentView?.transform = .init(scaleX: widthSegmentOverrides[index] / widthSegmentOverrides[0], y: 1)
+                                    self.selectedSegmentView?.frame.origin.x = segments[index].frame.minX
+                                }
+                            }
+                        } else {
+                            selectedSegmentView?.frame.origin.x = (scrollView?.contentOffset.x)! / changeOffset
+                        }
                     }
                     
                     //update segment offset x position
