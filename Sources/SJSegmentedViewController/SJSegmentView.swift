@@ -347,11 +347,17 @@ class SJSegmentView: UIScrollView {
                     let value = (scrollView?.contentOffset.x)! / changeOffset
                     
                     if !value.isNaN {
+                        // update offset and of selectedSegmentView (the tiny line that animates underneath the tab)
                         if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count >= segments.count {
                             for index in 0..<segments.count {
                                 if segments[index].isSelected {
-                                    self.selectedSegmentView?.transform = .init(scaleX: widthSegmentOverrides[index] / widthSegmentOverrides[0], y: 1)
+                                    let transformOffset = widthSegmentOverrides[index] / widthSegmentOverrides[0]
+                                    self.selectedSegmentView?.transform = .init(scaleX: transformOffset, y: 1)
                                     self.selectedSegmentView?.frame.origin.x = segments[index].frame.minX
+                                    
+                                    if let cornerRadius {
+                                        self.selectedSegmentView?.layer.cornerRadius = cornerRadius / transformOffset
+                                    }
                                 }
                             }
                         } else {
