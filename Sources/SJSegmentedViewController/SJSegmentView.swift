@@ -68,6 +68,7 @@ class SJSegmentView: UIScrollView {
     
     var font: UIFont?
     var selectedFont: UIFont?
+    var cornerRadius: CGFloat?
     var selectedSegmentViewHeight: CGFloat?
     let kSegmentViewTagOffset = 100
     var segmentViewOffsetWidth: CGFloat = 10.0
@@ -236,6 +237,7 @@ class SJSegmentView: UIScrollView {
         segmentView.translatesAutoresizingMaskIntoConstraints = false
         segmentContentView!.addSubview(segmentView)
         selectedSegmentView = segmentView
+        segmentView.layer.cornerRadius = cornerRadius ?? 0
         
         xPosConstraints = NSLayoutConstraint(item: segmentView,
                                              attribute: .leading,

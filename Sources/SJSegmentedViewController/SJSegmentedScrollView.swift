@@ -56,7 +56,8 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.selectedSegmentViewColor = selectedSegmentViewColor
         }
     }
-
+    
+    var selectedSegmentCornerRadius: CGFloat = 0
     var selectedSegmentViewHeight: CGFloat = 0
 
     var segmentBounces = false
@@ -284,6 +285,7 @@ class SJSegmentedScrollView: UIScrollView {
             segmentView?.font = segmentTitleFont!
             segmentView?.selectedFont = segmentSelectedTitleFont!
             segmentView?.shadow = segmentShadow
+            segmentView?.cornerRadius = selectedSegmentCornerRadius
 
             segmentView?.bounces = false
             segmentView!.translatesAutoresizingMaskIntoConstraints = false

@@ -136,6 +136,19 @@ import UIKit
     }
     
     /**
+     *  Set cornerRadius for selected segment view.
+     *
+     *  By default radius is 0.0
+     *
+     *  segmentedViewController.cornerRadius = 0.0
+     */
+    open var selectedSegmentCornerRadius: CGFloat = 0.0 {
+        didSet {
+            segmentedScrollView.selectedSegmentCornerRadius = selectedSegmentCornerRadius
+        }
+    }
+    
+    /**
      *  Set color for segment title.
      *
      *  By default the color is black.
