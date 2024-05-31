@@ -68,17 +68,19 @@ class SJSegmentView: UIScrollView {
     
     var font: UIFont?
     var selectedFont: UIFont?
+    var cornerRadius: CGFloat?
+    var segmentSpacing: CGFloat?
     var selectedSegmentViewHeight: CGFloat?
     let kSegmentViewTagOffset = 100
     var segmentViewOffsetWidth: CGFloat = 10.0
     var segments = [SJSegmentTab]()
     var segmentContentView: UIView?
     var didSelectSegmentAtIndex: DidSelectSegmentAtIndex?
-    var selectedSegmentView: UIView?
+    private var selectedSegmentView: UIView?
     var xPosConstraints: NSLayoutConstraint?
-    var contentViewWidthConstraint: NSLayoutConstraint?
-    var selectedSegmentViewWidthConstraint: NSLayoutConstraint?
-    var contentSubViewWidthConstraints = [NSLayoutConstraint]()
+    var widthSegmentOverrides: [CGFloat] = []
+    private var contentViewWidthConstraint: NSLayoutConstraint?
+    private var contentSubViewWidthConstraints = [NSLayoutConstraint]()
 	var controllers: [UIViewController]?
     
     var contentView: SJContentView? {
@@ -141,8 +143,12 @@ class SJSegmentView: UIScrollView {
         
         var index = 0
         for controller in controllers! {
+            var widthOverride: CGFloat = segmentWidth
+            if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count > index {
+                widthOverride = widthSegmentOverrides[index]
+            }
             
-            createSegmentFor(controller, width: segmentWidth, index: index)
+            createSegmentFor(controller, width: widthOverride, index: index)
             index += 1
         }
         
@@ -208,6 +214,13 @@ class SJSegmentView: UIScrollView {
                                                                                        metrics: nil,
                                                                                        views: ["view": segmentView,
                                                                                         "previousView": previousView!])
+            
+            if let segmentSpacing {
+                horizontalConstraints.forEach {
+                    $0.constant = segmentSpacing
+                }
+            }
+            
             segmentContentView!.addConstraints(horizontalConstraints)
         }
         
@@ -229,13 +242,14 @@ class SJSegmentView: UIScrollView {
         segments.append(segmentView)
     }
     
-    func createSelectedSegmentView(_ width: CGFloat) {
+    private func createSelectedSegmentView(_ width: CGFloat) {
         
         let segmentView = UIView()
         segmentView.backgroundColor = selectedSegmentViewColor
         segmentView.translatesAutoresizingMaskIntoConstraints = false
         segmentContentView!.addSubview(segmentView)
         selectedSegmentView = segmentView
+        segmentView.layer.cornerRadius = cornerRadius ?? 0
         
         xPosConstraints = NSLayoutConstraint(item: segmentView,
                                              attribute: .leading,
@@ -287,7 +301,7 @@ class SJSegmentView: UIScrollView {
         return segmentTab!
     }
 
-	func widthForSegment(_ frame: CGRect) -> CGFloat {
+	private func widthForSegment(_ frame: CGRect) -> CGFloat {
 
 		var maxWidth: CGFloat = 0
 		for controller in controllers! {
@@ -333,7 +347,22 @@ class SJSegmentView: UIScrollView {
                     let value = (scrollView?.contentOffset.x)! / changeOffset
                     
                     if !value.isNaN {
-                        selectedSegmentView?.frame.origin.x = (scrollView?.contentOffset.x)! / changeOffset
+                        // update offset and of selectedSegmentView (the tiny line that animates underneath the tab)
+                        if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count >= segments.count {
+                            for index in 0..<segments.count {
+                                if segments[index].isSelected {
+                                    let transformOffset = widthSegmentOverrides[index] / widthSegmentOverrides[0]
+                                    self.selectedSegmentView?.transform = .init(scaleX: transformOffset, y: 1)
+                                    self.selectedSegmentView?.frame.origin.x = segments[index].frame.minX
+                                    
+                                    if let cornerRadius {
+                                        self.selectedSegmentView?.layer.cornerRadius = cornerRadius / transformOffset
+                                    }
+                                }
+                            }
+                        } else {
+                            selectedSegmentView?.frame.origin.x = (scrollView?.contentOffset.x)! / changeOffset
+                        }
                     }
                     
                     //update segment offset x position

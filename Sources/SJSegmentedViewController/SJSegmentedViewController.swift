@@ -136,6 +136,41 @@ import UIKit
     }
     
     /**
+     *  Set cornerRadius for selected segment view.
+     *
+     *  By default radius is 0.0
+     *
+     *  segmentedViewController.cornerRadius = 0.0
+     */
+    open var selectedSegmentCornerRadius: CGFloat = 0.0 {
+        didSet {
+            segmentedScrollView.selectedSegmentCornerRadius = selectedSegmentCornerRadius
+        }
+    }
+    
+    /**
+     *  Set padding inbetween segments
+     *
+     *  By default is nil
+     */
+    open var segmentSpacing: CGFloat? {
+        didSet {
+            segmentedScrollView.segmentSpacing = segmentSpacing
+        }
+    }
+    
+    /**
+     *  Set width for segment views.
+     *
+     *  By default width is equally spaced based on screen width
+     */
+    open var widthSegmentOverrides: [CGFloat] = [] {
+        didSet {
+            segmentedScrollView.widthSegmentOverrides = widthSegmentOverrides
+        }
+    }
+    
+    /**
      *  Set color for segment title.
      *
      *  By default the color is black.
