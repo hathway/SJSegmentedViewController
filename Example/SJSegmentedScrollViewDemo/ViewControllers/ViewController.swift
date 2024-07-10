@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SJSegmentedScrollView
+import SJSegmentedViewController
 
 class ViewController: SJSegmentedViewController {
 
@@ -43,16 +43,15 @@ class ViewController: SJSegmentedViewController {
 			                           secondViewController,
 			                           thirdViewController!,
 			                           fourthViewController]
-			headerViewHeight = 200
-			selectedSegmentViewHeight = 5.0
-			headerViewOffsetHeight = 31.0
-			segmentTitleColor = .gray
-			selectedSegmentViewColor = .red
-			segmentShadow = SJShadow.light()
-			showsHorizontalScrollIndicator = false
-			showsVerticalScrollIndicator = false
-			segmentBounces = false
-			delegate = self
+            selectedSegmentViewHeight = 4.0
+            selectedSegmentCornerRadius = 2.0
+            selectedSegmentViewColor = .blue
+            headerViewHeight = 351.0
+            headerViewOffsetHeight = 44.0
+            segmentViewHeight = 40.0
+            segmentViewEdgeInsets = .init(top: 20, left: 16, bottom: -2, right: 16)
+            widthSegmentOverrides = [60, 70, 60, 70]
+            segmentSpacing = 24
 		}
 
 		title = "Segment"

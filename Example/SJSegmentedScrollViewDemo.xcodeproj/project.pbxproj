@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63C85E7A2A5E866600B67CC4 /* SJSegmentedScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 63C85E792A5E866600B67CC4 /* SJSegmentedScrollView */; };
 		648742301DAE2D8100E76916 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6487422F1DAE2D8100E76916 /* CollectionViewController.swift */; };
 		64A421681D3D4543009BFBFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A4215A1D3D4543009BFBFE /* AppDelegate.swift */; };
 		64A421691D3D4543009BFBFE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64A4215B1D3D4543009BFBFE /* LaunchScreen.xib */; };
@@ -22,6 +21,7 @@
 		64EE32DA1DE83EB40003EA2A /* ExamplePresentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE32D91DE83EB40003EA2A /* ExamplePresentViewController.swift */; };
 		64EE32DC1DE840440003EA2A /* ExamplePushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE32DB1DE840440003EA2A /* ExamplePushViewController.swift */; };
 		65ED4A151D70043600B2EE28 /* image3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 65ED4A141D70043600B2EE28 /* image3.JPG */; };
+		DCA5B9E72C3E708D00604BDD /* SJSegmentedViewController in Frameworks */ = {isa = PBXBuildFile; productRef = DCA5B9E62C3E708D00604BDD /* SJSegmentedViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63C85E7A2A5E866600B67CC4 /* SJSegmentedScrollView in Frameworks */,
+				DCA5B9E72C3E708D00604BDD /* SJSegmentedViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +140,7 @@
 			);
 			name = SJSegmentedScrollViewDemo;
 			packageProductDependencies = (
-				63C85E792A5E866600B67CC4 /* SJSegmentedScrollView */,
+				DCA5B9E62C3E708D00604BDD /* SJSegmentedViewController */,
 			);
 			productName = SJSegmentedScrollView;
 			productReference = 607FACD01AFB9204008FA782 /* SJSegmentedScrollViewDemo.app */;
@@ -411,9 +411,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		63C85E792A5E866600B67CC4 /* SJSegmentedScrollView */ = {
+		DCA5B9E62C3E708D00604BDD /* SJSegmentedViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SJSegmentedScrollView;
+			productName = SJSegmentedViewController;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

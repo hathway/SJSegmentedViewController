@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SJSegmentedScrollView
+import SJSegmentedViewController
 
 private let reuseIdentifier = "CollectionCellIdentifier"
 

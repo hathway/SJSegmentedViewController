@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SJSegmentedScrollView
+import SJSegmentedViewController
 
 class ExamplePushViewController: UIViewController {
 

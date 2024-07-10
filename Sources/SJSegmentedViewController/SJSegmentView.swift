@@ -134,6 +134,20 @@ class SJSegmentView: UIScrollView {
 			let button = segments[index!]
 			button.isSelected = true
 		}
+        
+        if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count >= segments.count {
+            for index in 0..<segments.count {
+                if segments[index].isSelected {
+                    let transformOffset = widthSegmentOverrides[index] / widthSegmentOverrides[0]
+                    self.selectedSegmentView?.transform = .init(scaleX: transformOffset, y: 1)
+                    self.selectedSegmentView?.frame.origin.x = segments[index].frame.minX
+                    
+                    if let cornerRadius {
+                        self.selectedSegmentView?.layer.cornerRadius = cornerRadius / transformOffset
+                    }
+                }
+            }
+        }
     }
 
     func setSegmentsView(_ frame: CGRect) {
@@ -348,19 +362,7 @@ class SJSegmentView: UIScrollView {
                     
                     if !value.isNaN {
                         // update offset and of selectedSegmentView (the tiny line that animates underneath the tab)
-                        if !widthSegmentOverrides.isEmpty, widthSegmentOverrides.count >= segments.count {
-                            for index in 0..<segments.count {
-                                if segments[index].isSelected {
-                                    let transformOffset = widthSegmentOverrides[index] / widthSegmentOverrides[0]
-                                    self.selectedSegmentView?.transform = .init(scaleX: transformOffset, y: 1)
-                                    self.selectedSegmentView?.frame.origin.x = segments[index].frame.minX
-                                    
-                                    if let cornerRadius {
-                                        self.selectedSegmentView?.layer.cornerRadius = cornerRadius / transformOffset
-                                    }
-                                }
-                            }
-                        } else {
+                        if widthSegmentOverrides.isEmpty{
                             selectedSegmentView?.frame.origin.x = (scrollView?.contentOffset.x)! / changeOffset
                         }
                     }
